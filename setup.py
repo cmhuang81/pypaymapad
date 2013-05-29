@@ -16,14 +16,14 @@ requires = [
     ]
 
 
-setup(name='paymapad',
-      version='0.0',
-      description='paymapad',
+setup(name='pypaymapad',
+      version='0.1',
+      description='paymapad python version',
       long_description="ad map ",
       author='',
       author_email='',
       url='',
-      keywords='paymapad',
+      keywords='pypaymapad',
       packages=find_packages('src'),
       package_dir={'': 'src'},
       include_package_data=True,
