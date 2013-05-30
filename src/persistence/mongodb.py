@@ -43,22 +43,22 @@ def create_staticInMongo():
 
 
 def create_places(places):
-	connection = pymongo.MongoClient(db_host,db_port)
-	db = connection.paymapad
-	i = 0
-	for place in places:
-		p = db.places.find_one({"rightBottomLnglat":place['rightBottomLnglat'], 
-			"leftTopLnglat" : place['leftTopLnglat'], 
-			"centerLnglat" : place['centerLnglat'], 
-			"zoom" : place['zoom'], 
-			"mapShapeID" : place['mapShapeID'], 
-			"mapTypeID" : place['mapTypeID']})
-		if p is None:
-			db.places.insert(place)
-		# print 'insert NO.',i
-		i=i+1
-		print 'completed----------------',i
-	connection.close()
+    connection = pymongo.MongoClient(db_host,db_port)
+    db = connection.paymapad
+    i = 0
+    for place in places:
+        p = db.places.find_one({"rightBottomLnglat":place['rightBottomLnglat'], 
+            "leftTopLnglat" : place['leftTopLnglat'], 
+            "centerLnglat" : place['centerLnglat'], 
+            "zoom" : place['zoom'], 
+            "mapShapeID" : place['mapShapeID'], 
+            "mapTypeID" : place['mapTypeID']})
+        if p is None:
+            db.places.insert(place)
+        # print 'insert NO.',i
+        i=i+1
+        print 'completed----------------',i
+    connection.close()
 
 def create_ads(ads):
     connection = pymongo.MongoClient(db_host,db_port)
@@ -71,6 +71,9 @@ def create_ads(ads):
         lat = float(ad['ypoint'])
         icon = ad['icon']
         image = ad['image']
+        recentMapTypeID = ad['recentMapTypeID'] if ad['recentMapTypeID'] is not None else 1
+        recentLnglat = ad['recentLnglat'] if ad['recentLnglat'] is not None else [31.29,120.58]
+        recentZoom = ad['recentZoom'] if ad['recentZoom'] is not None else 16
         a = db.ads.find_one({"name":name, 
             "lnglatArr" : [lng,lat], 
             "infoDescription" :[name,name,name]
@@ -87,6 +90,9 @@ def create_ads(ads):
             ia['infoStyleID']=1
             ia['infoImgUrl']=[bigImgUrl,bigImgUrl,bigImgUrl]
             ia['infoDescription']=[name,name,name]
+            ia['recentMapTypeID']=recentMapTypeID
+            ia['recentLnglat']=recentLnglat
+            ia['recentZoom']=recentZoom
             db.ads.insert(ia)
         # print 'insert NO.',i
         i=i+1
@@ -103,7 +109,7 @@ def match_ads():
         place = db.places.find_one({'centerLnglat':{'$within':{'$centerSphere':[adLnglat, 1 / 3959]}}})
         if place:
             imgUrl = ad['imgUrl'][place['mapShapeID']]
-            print imgUrl
+            # print imgUrl
             if not imgUrl:
                 continue
             adplace = {}
@@ -118,8 +124,8 @@ def match_ads():
             adplace['infoStyleID'] = ad['infoStyleID']
             adplace['zoom'] = place['zoom']
 
-            db.adplaces.insert(adplace)        	
+            db.adplaces.insert(adplace)         
 
 
 if __name__ == '__main__':
-	match_ads()
+    match_ads()
