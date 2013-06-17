@@ -1,5 +1,6 @@
-ad map backend version 0.1
+# ad map backend version 0.1
 
+## Step
 
 1.import advertisement places by excuting 'create_places.py' script.
   It will create record in mongo db
@@ -14,8 +15,9 @@ ad map backend version 0.1
 
 6.upload to cloud(eg.upyun excuting 'upload_upyun.py')
 
-*project structure
+## project folder structure
 
+```
 __src______
 |		   |_______data (json data,ads.json places.json ...)
 |		   |
@@ -29,8 +31,9 @@ __src______
 |
 |
 |
-|_static_files (/maptype/zoom/lng-lat.js)
+|__static_files (/maptype/zoom/lng-lat.js)
 |
-|_conf (db-config...)		
+|__conf (db-config...)	
+```	
 
 		
