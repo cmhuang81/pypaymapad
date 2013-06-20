@@ -12,8 +12,8 @@ import ConfigParser
 
 cf = ConfigParser.ConfigParser()
 cf.read('../conf/db_config.ini')
-db_host = cf.get("baseconf","host")
-db_port = int(cf.get("baseconf","port"))
+db_host = cf.get("mongodbconf","host")
+db_port = int(cf.get("mongodbconf","port"))
 
 def create_staticInMongo():
     connection = pymongo.MongoClient(db_host,db_port)
