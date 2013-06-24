@@ -7,9 +7,8 @@ import json
 from bson.objectid import ObjectId
 from tools import util
 
-def create_staticInMongo():
-    connection = pymongo.MongoClient(db_host,db_port)
-    db = connection.paymapad
+@mongo_conn
+def create_staticInMongo(db):
     adPlacesList = db.adplaces.find()
     i = 0
     for adp in adPlacesList:
@@ -31,12 +30,10 @@ def create_staticInMongo():
         print "completed-------------------------",i
         # print fileResource
     # db.close()
-    connection.close()
+    # connection.close()
 
-
-def create_places(places):
-    connection = pymongo.MongoClient(db_host,db_port)
-    db = connection.paymapad
+@mongo_conn
+def create_places(places,db):
     i = 0
     for place in places:
         p = db.places.find_one({"rightBottomLnglat":place['rightBottomLnglat'], 
@@ -50,11 +47,9 @@ def create_places(places):
         # print 'insert NO.',i
         i=i+1
         print 'completed----------------',i
-    connection.close()
 
-def create_ads(ads):
-    connection = pymongo.MongoClient(db_host,db_port)
-    db = connection.paymapad
+@mongo_conn
+def create_ads(ads,db):
     i = 0
     for ad in ads:
         name = ad['name']
@@ -89,11 +84,9 @@ def create_ads(ads):
         # print 'insert NO.',i
         i=i+1
         print 'completed----------------',i
-    connection.close()
 
-def match_ads():
-    connection = pymongo.MongoClient(db_host,db_port)
-    db = connection.paymapad
+@mongo_conn
+def match_ads(db):
     ads = db.ads.find()
     for ad in ads:
         adLnglat = ad['lnglatArr'][0]

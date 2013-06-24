@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*
 import math
+import pymongo
 from string import Template
 
 import ConfigParser
@@ -8,6 +9,15 @@ cf = ConfigParser.ConfigParser()
 cf.read('../conf/db_config.ini')
 db_host = cf.get("mongodbconf","host")
 db_port = int(cf.get("mongodbconf","port"))
+
+def mongo_conn(func):
+    def new_func(*args, **argkw):
+        connection = pymongo.MongoClient(db_host,db_port)
+        db = connection.paymapad
+        argkw['db'] = db
+        connection.close()
+        return func(*args, **argkw)
+    return new_func 
 
 # google tile
 def getFileKey(lon, lat, nZoom):
