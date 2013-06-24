@@ -5,15 +5,7 @@ import math
 from tools.util import *
 import json
 from bson.objectid import ObjectId
-
-import ConfigParser
-
-
-
-cf = ConfigParser.ConfigParser()
-cf.read('../conf/db_config.ini')
-db_host = cf.get("mongodbconf","host")
-db_port = int(cf.get("mongodbconf","port"))
+from tools import util
 
 def create_staticInMongo():
     connection = pymongo.MongoClient(db_host,db_port)
@@ -128,4 +120,4 @@ def match_ads():
 
 
 if __name__ == '__main__':
-    match_ads()
+    create_staticInMongo()

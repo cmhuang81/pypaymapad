@@ -2,6 +2,13 @@
 import math
 from string import Template
 
+import ConfigParser
+
+cf = ConfigParser.ConfigParser()
+cf.read('../conf/db_config.ini')
+db_host = cf.get("mongodbconf","host")
+db_port = int(cf.get("mongodbconf","port"))
+
 # google tile
 def getFileKey(lon, lat, nZoom):
     x = int(math.floor((float(lon) + 180) / 360 * math.pow(2, nZoom)))
