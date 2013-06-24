@@ -19,7 +19,6 @@
 
 ```
 __src______
-|		   |_______data (json data,ads.json places.json ...)
 |		   |
 |		   |_______libs (libraries)
 |		   |
@@ -30,6 +29,7 @@ __src______
 |		   |_______tools (utils)
 |
 |
+|__data (json data,ads.json places.json ...)
 |
 |__static_files (/maptype/zoom/lng-lat.js)
 |
