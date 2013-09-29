@@ -28,7 +28,7 @@ def getFileKey(lon, lat, nZoom):
 
 def keyMaker(lon,lat, nZoom,mapTypeID):
     key = getFileKey(lon,lat,nZoom)
-    return str(mapTypeID)+"-"+str(key[2])+"-"+str(key[0])+"-"+str(key[1])
+    return "".join([str(mapTypeID),"-",str(key[2]),"-",str(key[0]),"-",str(key[1])])
 
 content_template = Template('''{
 "id":"${id}",
