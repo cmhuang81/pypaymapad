@@ -15,7 +15,7 @@ def mongo_conn(func):
         connection = pymongo.MongoClient(db_host,db_port)
         db = connection.paymapad
         argkw['db'] = db
-        connection.close()
+        # connection.close()
         return func(*args, **argkw)
     return new_func 
 
